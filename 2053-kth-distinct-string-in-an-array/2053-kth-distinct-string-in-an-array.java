@@ -1,21 +1,21 @@
 class Solution {
     public String kthDistinct(String[] arr, int k) {
 
-        for (int i = 0; i < arr.length; i++) {
+        HashMap<String, Integer> map = new HashMap<>();
 
-            int count = 0;
+        // Count each string
+        for (String s : arr) {
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
 
-            for (int j = 0; j < arr.length; j++) {
-                if (arr[i].equals(arr[j])) {
-                    count++;
-                }
-            }
+        // Find kth distinct string
+        for (String s : arr) {
 
-            if (count == 1) {
+            if (map.get(s) == 1) {
                 k--;
 
                 if (k == 0) {
-                    return arr[i];
+                    return s;
                 }
             }
         }
