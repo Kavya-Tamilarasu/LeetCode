@@ -1,31 +1,27 @@
 class Solution {
     public int countPrimes(int n) {
-        
-        if (n <= 2) {
+        if(n<=2){
             return 0;
         }
-
-        boolean[] isPrime = new boolean[n];
-        for (int i = 2; i < n; i++) {
-            isPrime[i] = true;
-        }
-        for (int i = 2; i * i < n; i++) {
-
-            if (isPrime[i]) {
-
-                for (int j = i * i; j < n; j += i) {
-                    isPrime[j] = false;
+        return PrimeSeive(n);
+    }
+    public static int PrimeSeive(int n ){
+        int[] prime = new int[n];
+        prime[0]= 1; 
+        prime[1] = 1; 
+        for(int i = 2;i*i<=prime.length;i++){
+            if(prime[i]==0){
+                for(int j = 2;i*j<prime.length;j++){
+                    prime[i*j]=1;
                 }
             }
         }
-        int count = 0;
-
-        for (int i = 2; i < n; i++) {
-            if (isPrime[i]) {
-                count++;
+        int c = 0;
+        for(int i = 2;i<prime.length;i++){
+            if(prime[i]==0){
+                c++;
             }
         }
-
-        return count;
+        return c ;
     }
 }
