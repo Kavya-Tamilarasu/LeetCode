@@ -1,39 +1,39 @@
+import java.util.*;
+
 class MinStack {
 
-    static class Node {
-        int val;
-        int min;
+    Stack<Integer> stack;
+    Stack<Integer> minStack;
 
-        Node(int val, int min) {
-            this.val = val;
-            this.min = min;
-        }
+    public MinStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
     }
 
-    Stack<Node> stack = new Stack<>();
-
     public void push(int val) {
-        if (stack.isEmpty()) {
-            stack.push(new Node(val, val));
-        } else {
-            int min = Math.min(val, stack.peek().min);
-            stack.push(new Node(val, min));
+        stack.push(val);
+
+        if (minStack.isEmpty() || val <= minStack.peek()) {
+            minStack.push(val);
         }
     }
 
     public void pop() {
+        if (stack.peek().equals(minStack.peek())) {
+            minStack.pop();
+        }
+
         stack.pop();
     }
 
     public int top() {
-        return stack.peek().val;
+        return stack.peek();
     }
 
     public int getMin() {
-        return stack.peek().min;
+        return minStack.peek();
     }
 }
-
 /**
  * Your MinStack object will be instantiated and called as such:
  * MinStack obj = new MinStack();
